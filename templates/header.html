@@ -1,0 +1,34 @@
+<header>
+    <nav>
+        <div class="container">
+            <div class="wrapper">
+                <h1><a href="{% url 'index' %}"><strong>Astro</strong>Trader</a></h1>
+                <ul>
+                    <li><a href="{% url 'index' %}" class="current">home</a></li>
+                    <li><a href="{% url 'telescope list' %}">all scopes</a></li>
+                    <li><a href="{% url 'create telescope' %}">post an ad</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'profile details' %}">{{ request.user }}</a></li>
+                        <li><a href="{% url 'logout' %}">logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">login</a></li>
+                        <li><a href="{% url 'register' %}">register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="adv-content">
+        <div class="container">
+            <ul class="breadcrumbs">
+                <li>Home</li>
+            </ul>
+            <form action="#" id="search-form">
+                <fieldset>
+                    <input type="text" value="">
+                    <input type="submit" value="">
+                </fieldset>
+            </form>
+        </div>
+    </section>
+</header>

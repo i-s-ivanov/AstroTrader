@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{{ telescope.image.url }}" style="width: 100%" alt="">
+        </div>
+        <div class="col-lg-6">
+            <h1>Model: {{ telescope.model }}</h1>
+            <h2>Make: {{ telescope.make }}</h2>
+            <h3>Price: <strong>{{ telescope.price }}$</strong></h3>
+            <p>Description: {{ telescope.description }}</p>
+
+            <a href="{% url 'update telescope' telescope.id %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'delete telescope' telescope.id %}" class="btn btn-danger">Delete</a>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="col-md-4">
+    <div class="card" style="width: 18rem;">
+        <img src="{{ telescope.image.url }}" class="img-fluid img-thumbnail" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ telescope.model }}</h5>
+            <p class="card-text">{{ telescope.description|truncatechars:50 }}</p>
+            <h3 class="card-text">{{ telescope.price }}$</h3>
+            <a href="{% url 'telescope details' telescope.id %}" class="btn btn-danger">See details</a>
+        </div>
+    </div>
+</div>
