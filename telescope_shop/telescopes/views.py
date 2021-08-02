@@ -24,6 +24,11 @@ class TelescopeDetails(generic.DetailView):
     model = Telescope
     template_name = 'telescopes/telescope_details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(TelescopeDetails, self).get_context_data(**kwargs)
+        context['is_owner'] = self.object.user_id == self.request.user.id
+        return context
+
 
 class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.CreateView):
     form_class = CreateTelescopeForm

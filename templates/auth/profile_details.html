@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
+<title>{% block title %}Profile{% endblock %}</title>
 {% block content %}
     <div class="text-center">
         <h1>Hello, {{ request.user }}!</h1>
@@ -10,31 +10,38 @@
             <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt="" width="140"
                  height="140">
         {% else %}
-            <img class="rounded-circle mb-3" src="{% static 'profile/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg' %}" alt="" width="140"
+            <img class="rounded-circle mb-3"
+                 src="{% static 'profile/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg' %}"
+                 alt="" width="140"
                  height="140">
         {% endif %}
+        <form action="{% url 'profile details' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>Profile Image: </h3>
+            <input type="file" name="profile_image" accept="image/*" id="id_profile_image">
+            <button class="btn btn-danger">Update</button>
+        </form>
+        <br>
         <div class="w-50 m-auto">
-            <form action="{% url 'profile details' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form }}
-                <button class="btn btn-success">Update</button>
-            </form>
+            <a class="btn btn-danger" href="{% url 'update profile' %}">Update Profile</a>
+            <a class="btn btn-dark" href="{% url 'delete profile' request.user.id %}">Delete Profile</a>
         </div>
     </div>
     <hr>
-    {% if ads %}
+    {% if posts %}
         <h2 class='text-center'>Your ads</h2>
-        <div class="row">
-            <div class="row">
-                {% for ad in ads %}
-                    <div class="col-lg-4">
+        <br>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                {% for post in posts %}
+                    <div class="col">
                         <div class="card" style="width: 18rem;">
-                            <img src="{{ ad.image.url}}" class="card-img-top" alt="...">
+                            <img src="{{ post.image.url }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ ad.make }}</h5>
-                                <p class="card-text">{{ ad.model }}</p>
-                                <p class="card-text"><strong>Price: {{ ad.price }}$</strong></p>
-                                <a href="{% url 'telescope details' ad.id %}" class="btn btn-primary">See details</a>
+                                <h5 class="card-title">{{ post.make }}</h5>
+                                <p class="card-text">{{ post.model }}</p>
+                                <p class="card-text"><strong>Price: {{ post.price }}$</strong></p>
+                                <a href="{% url 'telescope details' post.id %}" class="btn btn-danger">See details</a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +51,7 @@
     {% else %}
         <div class="text-center">
             <h2>You have no ads</h2>
-            <a href="{% url 'create telescope' %}" class="btn btn-success">Create your first Ad</a>
+            <a href="{% url 'create telescope' %}" class="btn btn-danger">Create your first Ad</a>
         </div>
     {% endif %}
 

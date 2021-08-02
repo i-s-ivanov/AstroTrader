@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+<title>{% block title %}Update Ad{% endblock %}</title>
 {% block content %}
     <div class="row">
         <div class="col-lg-3"></div>
@@ -6,6 +7,7 @@
             <form method="post" action="{% url 'update telescope' telescope.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form }}
+                <br>
                 <button class="btn btn-danger" type="submit">Update</button>
             </form>
         </div>

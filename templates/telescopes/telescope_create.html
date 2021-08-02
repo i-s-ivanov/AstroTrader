@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+<title>{% block title %}Create an Ad{% endblock %}</title>
 {% block content %}
     <div class="row">
         <div class="col-lg-3"></div>
@@ -6,7 +7,8 @@
             <form method="post" action="{% url 'create telescope' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form }}
-                <button class="btn btn-primary" type="submit">Create</button>
+                <br>
+                <button class="btn btn-danger" type="submit">Create</button>
             </form>
         </div>
         <div class="col-lg-3"></div>

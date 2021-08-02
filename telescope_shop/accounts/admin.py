@@ -21,3 +21,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.unregister(UserModel)
 admin.site.register(UserModel, UserAdmin)
+admin.site.register(Profile)
