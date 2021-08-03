@@ -17,7 +17,7 @@
         {% endif %}
         <form action="{% url 'profile details' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h3>Profile Image: </h3>
+            <h3>Change profile picture: </h3>
             <input type="file" name="profile_image" accept="image/*" id="id_profile_image">
             <button class="btn btn-danger">Update</button>
         </form>

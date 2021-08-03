@@ -1,21 +1,39 @@
 {% extends 'base.html' %}
 <title>{% block title %}Details Ad{% endblock %}</title>
 {% block content %}
-    <div class="row">
-        <div class="col-lg-4">
-            <img src="{{ telescope.image.url }}" style="width: 100%" alt="">
-        </div>
-        <div class="col-lg-6">
-            <h1>Make: {{ telescope.make }}</h1>
-            <h2>Model: {{ telescope.model }}</h2>
-
-            <p>Description: {{ telescope.description }}</p>
-            <h3>Price: <strong>{{ telescope.price }}$</strong></h3>
-            {% if is_owner %}
-            <a href="{% url 'update telescope' telescope.id %}" class="btn btn-secondary">Edit</a>
-            <a href="{% url 'delete telescope' telescope.id %}" class="btn btn-danger">Delete</a>
-            {% endif %}
-
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img class="card-img" src="{{ telescope.image.url }}" style="width: 100%" alt="">
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h1>Make: {{ telescope.make }}</h1>
+                <h2>Model: {{ telescope.model }}</h2>
+                <p>Description: {{ telescope.description }}</p>
+                <p>Location: <strong>{{ telescope.location }}</strong></p>
+                <p>Contact Number: <strong>{{ telescope.contact_number }}</strong></p>
+                <h3>Price: <strong>{{ telescope.price }}$</strong></h3>
+                {% if is_owner %}
+                    <a href="{% url 'update telescope' telescope.id %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'delete telescope' telescope.id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+                <hr>
+                <div>
+                    <h2>Comments...</h2>
+                    {% if not telescope.comments.all %}
+                        No comments yet... <a href="{% url 'comment' telescope.pk %}">Add one</a>
+                        <br><br>
+                    {% else %}
+                        <a href="{% url 'comment' telescope.pk %}">Add Comment</a><br>
+                        {% for comment in telescope.comments.all %}
+                            <small>{{ comment.name }} - {{ comment.created }}</small><br>
+                            <strong>{{ comment.text }}</strong>
+                            <hr>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

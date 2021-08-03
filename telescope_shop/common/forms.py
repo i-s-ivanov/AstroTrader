@@ -9,3 +9,4 @@ class BootstrapFormMixin:
             field.widget.attrs = {
                 'class': 'form-control'
             }
+

@@ -1,12 +1,33 @@
 {% extends 'base.html' %}
 {% block title %}All Telescopes{% endblock %}
 {% block content %}
-    <div class="container" >
+    <div class="container">
         <div class="row justify-content-md-center">
-            {% for telescope in telescopes %}
-                {% include 'telescopes/telescope_container.html' with telescope=telescope %}
-            {% endfor %}
+            {% if telescopes %}
+                {% for telescope in telescopes %}
+                    {% include 'telescopes/telescope_container.html' with telescope=telescope %}
+                {% endfor %}
+            {% else %}
+                <h1>There's anything for sell yet...</h1>
+            {% endif %}
         </div>
     </div>
+    <br><br>
+    <div style="align-items: center" class="container">
+        <div  class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                    <strong>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</strong>
+                </span>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-secondary" href="?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
 {% endblock %}
 

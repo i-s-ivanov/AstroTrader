@@ -5,10 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
-from telescope_shop.accounts.models import Profile
 from telescope_shop.common.forms import BootstrapFormMixin
-from telescope_shop.telescopes.forms import CreateTelescopeForm
-from telescope_shop.telescopes.models import Telescope
+from telescope_shop.telescopes.forms import CreateTelescopeForm, CommentForm
+from telescope_shop.telescopes.models import Telescope, Comment
 
 UserModel = get_user_model()
 
@@ -18,6 +17,7 @@ class TelescopeListView(generic.ListView):
     model = Telescope
     context_object_name = 'telescopes'
     ordering = ['-created']
+    paginate_by = 6
 
 
 class TelescopeDetails(generic.DetailView):
@@ -28,6 +28,22 @@ class TelescopeDetails(generic.DetailView):
         context = super(TelescopeDetails, self).get_context_data(**kwargs)
         context['is_owner'] = self.object.user_id == self.request.user.id
         return context
+
+
+class CommentView(generic.CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'telescopes/telescope_comment.html'
+
+    def get_success_url(self):
+        item_id = self.kwargs['pk']
+        return reverse_lazy('telescope details', kwargs={'pk': item_id})
+
+    def form_valid(self, form):
+        form.instance.telescope_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+
 
 
 class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.CreateView):

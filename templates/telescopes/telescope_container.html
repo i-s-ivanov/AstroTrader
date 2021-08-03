@@ -3,8 +3,10 @@
         <img src="{{ telescope.image.url }}" class="img-fluid img-thumbnail" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{ telescope.model }}</h5>
+            <small class="card-text">Published: {{ telescope.created|date }}</small>
             <p class="card-text">{{ telescope.description|truncatechars:50 }}</p>
-            <h3 class="card-text">{{ telescope.price }}$</h3>
+            <p class="card-text">Location: {{ telescope.location }}</p>
+            <h3 class="card-text">Price: {{ telescope.price }}$</h3>
             <a href="{% url 'telescope details' telescope.id %}" class="btn btn-danger">See details</a>
         </div>
     </div>
