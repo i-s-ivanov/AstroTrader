@@ -2,32 +2,16 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
 from django.views import generic
+
 
 from telescope_shop.common.forms import BootstrapFormMixin
 from telescope_shop.telescopes.forms import CreateTelescopeForm, CommentForm
 from telescope_shop.telescopes.models import Telescope, Comment
 
 UserModel = get_user_model()
-
-
-class TelescopeListView(generic.ListView):
-    template_name = 'telescopes/telescope_list.html'
-    model = Telescope
-    context_object_name = 'telescopes'
-    ordering = ['-created']
-    paginate_by = 6
-
-
-class TelescopeDetails(generic.DetailView):
-    model = Telescope
-    template_name = 'telescopes/telescope_details.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(TelescopeDetails, self).get_context_data(**kwargs)
-        context['is_owner'] = self.object.user_id == self.request.user.id
-        return context
 
 
 class CommentView(generic.CreateView):
@@ -44,6 +28,38 @@ class CommentView(generic.CreateView):
         return super().form_valid(form)
 
 
+class TelescopeListView(generic.ListView):
+    template_name = 'telescopes/telescope_list.html'
+    model = Telescope
+    context_object_name = 'telescopes'
+    ordering = ['-created']
+    paginate_by = 6
+
+
+class TelescopeDetails(generic.DetailView):
+    model = Telescope
+    template_name = 'telescopes/telescope_details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TelescopeDetails, self).get_context_data(**kwargs)
+        telescope_comments = self.get_related_comments()
+        context['comments'] = telescope_comments
+        context['page_obj'] = telescope_comments
+        context['is_owner'] = self.object.user_id == self.request.user.id
+        context['form'] = CommentForm
+        return context
+
+    def get_related_comments(self):
+        queryset = self.object.comments.all()
+        paginator = Paginator(queryset, 6)
+        page = self.request.GET.get('page', 1)
+        try:
+            comments = paginator.page(page)
+        except PageNotAnInteger:
+            comments = paginator.page(1)
+        except EmptyPage:
+            comments = paginator.page(paginator.num_pages)
+        return comments
 
 
 class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.CreateView):
@@ -57,7 +73,7 @@ class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.Create
         return super().form_valid(form)
 
 
-class TelescopeUpdateView(BootstrapFormMixin, generic.UpdateView):
+class TelescopeUpdateView(BootstrapFormMixin, LoginRequiredMixin, generic.UpdateView):
     model = Telescope
     template_name = 'telescopes/telescope_update.html'
     fields = ('make', 'model', 'description', 'price', 'image')
@@ -67,7 +83,7 @@ class TelescopeUpdateView(BootstrapFormMixin, generic.UpdateView):
         return reverse_lazy('telescope details', kwargs={'pk': item_id})
 
 
-class TelescopeDeleteView(generic.DeleteView):
+class TelescopeDeleteView(LoginRequiredMixin, generic.DeleteView):
     fields = '__all__'
     model = Telescope
     template_name = 'telescopes/telescope_delete.html'

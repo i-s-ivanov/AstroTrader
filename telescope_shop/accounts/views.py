@@ -1,12 +1,12 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
-from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth import views as auth_views, login, get_user_model
 from django.contrib.auth import forms as auth_forms
+from django.views.generic import FormView
 
 from telescope_shop.accounts.forms import ProfileForm, UserUpdateForm
 from telescope_shop.accounts.models import Profile
@@ -58,26 +58,28 @@ class PasswordsChangeView(BootstrapFormMixin, PasswordChangeView):
     template_name = 'auth/user_password_change.html'
 
 
-def profile_details(request):
-    profile = Profile.objects.get(pk=request.user.id)
-    if request.method == 'POST':
-        form = ProfileForm(
-            request.POST,
-            request.FILES,
-            instance=profile,
-        )
-        if form.is_valid():
-            form.save()
-            return redirect('profile details')
-    else:
-        form = ProfileForm(instance=profile)
+class ProfileDetailsView(FormView):
+    template_name = 'auth/profile_details.html'
+    form_class = ProfileForm
+    success_url = reverse_lazy('profile details')
+    object = None
 
-    user_posts = Telescope.objects.filter(user_id=request.user.id)
+    def get(self, request, *args, **kwargs):
+        self.object = Profile.objects.get(pk=self.request.user.id)
+        return super().get(request, *args, **kwargs)
 
-    context = {
-        'form': form,
-        'posts': user_posts,
-        'profile': profile,
-    }
+    def post(self, request, *args, **kwargs):
+        self.object = Profile.objects.get(pk=self.request.user.id)
+        return super().post(request, *args, **kwargs)
 
-    return render(request, 'auth/profile_details.html', context)
+    def form_valid(self, form):
+        self.object.profile_image = form.cleaned_data['profile_image']
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_posts = Telescope.objects.filter(user_id=self.request.user.id)
+        context['posts'] = user_posts
+        context['profile'] = self.object
+        return context

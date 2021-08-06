@@ -13,8 +13,8 @@
         </div>
     </div>
     <br><br>
-    <div style="align-items: center" class="container">
-        <div  class="pagination">
+    <div  class="container">
+        <div  class="pagination" id="pg">
             <span class="step-links">
                 {% if page_obj.has_previous %}
                     <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">previous</a>

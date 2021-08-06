@@ -2,6 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from telescope_shop.telescopes.models import Telescope, Comment
+from mptt.admin import MPTTModelAdmin
 
 
 @admin.register(Telescope)
@@ -10,8 +11,4 @@ class TelescopeAdmin(admin.ModelAdmin):
     list_filter = ('make', 'model', 'location', 'created',)
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'telescope', 'text',)
-    list_filter = ('created', 'name',)
-
+admin.site.register(Comment, MPTTModelAdmin)

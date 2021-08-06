@@ -18,13 +18,18 @@
     <script type="text/javascript" src="{% static 'js/jquery.cycle.all.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.5.custom.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/html5.js' %}"></script>
-    <![endif]-->
 </head>
 <body>
 {% include 'header.html' %}
 {% block content %}
 {% endblock %}
 </body>
+<div class="my_footer">
+    <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-2x"></i></a>
+    <a href="https://www.whatsapp.com/"><i class="fab fa-whatsapp fa-2x"></i></a>
+    <a href="https://www.facebook.com/"><i class="fab fa-facebook fa-2x"></i></a>
+    <a href="https://www.discord.com/"><i class="fab fa-discord fa-2x"></i></a>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.pics').cycle({

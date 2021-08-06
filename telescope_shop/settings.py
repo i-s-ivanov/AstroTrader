@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'telescope_shop.common',
     'telescope_shop.accounts',
     'bootstrap4',
+    'mptt',
 ]
 
 MIDDLEWARE = [
