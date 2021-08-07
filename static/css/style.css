@@ -469,12 +469,8 @@ header .breadcrumbs li {
     color: #06cbe2;
 }
 
-
-
-
-
 .my_footer {
-	display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -486,6 +482,7 @@ header .breadcrumbs li {
     text-align: center;
 
 }
+
 .my_footer a {
     position: relative;
     width: 40px;
@@ -553,37 +550,41 @@ header .breadcrumbs li {
     color: #7289da;
     text-shadow: 0 0 30px #7289da;
 }
+
 a {
     outline: none;
 }
 
 #search-form {
-	float:right;
-	position:relative;
+    float: right;
+    position: relative;
 }
+
 #search-form fieldset {
-	border:none;
+    border: none;
 }
+
 #search-form input[type=text] {
-	background:#fff;
-	width:195px;
-	border:none;
-	border-radius:20px;
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	padding:4px 25px 5px 8px;
-	box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;
-	-moz-box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;
-	-webkit-box-shadow:rgba(0, 0, 0, .2) 2px 2px 2px inset;
-	background:url(../images/search-bg.gif) no-repeat 100% 7px #fff;
+    background: #fff;
+    width: 195px;
+    border: none;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    padding: 4px 25px 5px 8px;
+    box-shadow: rgba(0, 0, 0, .2) 2px 2px 2px inset;
+    -moz-box-shadow: rgba(0, 0, 0, .2) 2px 2px 2px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, .2) 2px 2px 2px inset;
+    background: url(../images/search-bg.gif) no-repeat 100% 7px #fff;
 }
+
 #search-form input[type=submit] {
-	width:20px;
-	height:20px;
-	position:absolute;
-	right:5px;
-	top:0;
-	border:none;
-	background:none;
-	cursor:pointer;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
