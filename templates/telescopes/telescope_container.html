@@ -1,8 +1,8 @@
 <div class="col">
-    <div class="card" style="width: 18rem;">
+    <div class="row" style="width: 18rem;">
         <img src="{{ telescope.image.url }}" class="img-fluid img-thumbnail" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{ telescope.model }}</h5>
+            <h5 class="card-title">{{ telescope.make }} - {{ telescope.model }}</h5>
             <small class="card-text">Published: {{ telescope.created|date }}</small>
             <p class="card-text">{{ telescope.description|truncatechars:50 }}</p>
             <p class="card-text">Location: {{ telescope.location }}</p>
@@ -11,3 +11,4 @@
         </div>
     </div>
 </div>
+

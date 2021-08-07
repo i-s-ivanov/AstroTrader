@@ -6,7 +6,9 @@
         <div class="col-lg-12 text-center">
             <h1>Are you sure you want to delete {{ telescope.make }} {{ telescope.model }}??</h1>
             <br>
-            <img src="{{ telescope.image.url }}" alt="">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ telescope.image.url }}" alt="">
+            </div>
             <br><br>
             <div class="m-auto d-flex justify-content-center">
                 <div class="m-2">

@@ -45,9 +45,10 @@
                                         <div><small>{{ node.created|timesince }} ago</small></div>
                                     </div>
                                     <div>{{ node.text }}</div>
-                                    <hr>
+                                    <br>
                                     {% if node.level < 3 %}
-                                        <button class="btn btn-danger" onclick="myFunc({{ node.id }})">Reply</button>
+                                        <button class="btn btn-danger" onclick="myFunc({{ node.id }})">Reply
+                                        </button>
                                     {% endif %}
                                 </div>
                                 {% if not node.is_leaf_node %}
@@ -59,31 +60,35 @@
                         </div>
                         <div class="py-4">
                             <nav>
-                                {% if comments.has_other_pages %}
+                                {% if page_obj.has_other_pages %}
                                     <ul class="pagination">
-                                        {% if comments.has_previous %}
+                                        {% if page_obj.has_previous %}
                                             <li class="page-item"><a class="page-link text-danger"
-                                                                     href="?page={{ comments.previous_page_number }}">Previous</a>
+                                                                     href="?page={{ page_obj.previous_page_number }}">Previous</a>
                                             </li>
                                         {% else %}
-                                            <li class="page-item disabled"><a class="page-link text-danger" href="#">Previous</a>
+                                            <li class="page-item disabled"><a class="page-link text-danger"
+                                                                              href="#">Previous</a>
                                             </li>
                                         {% endif %}
-                                        {% for num in comments.paginator.page_range %}
-                                            {% if comments.number == l %}
-                                                <li class="page-item active"><span class="page-link text-danger">{{ num }} <span
+                                        {% for num in page_obj.paginator.page_range %}
+                                            {% if page_obj.number == l %}
+                                                <li class="page-item active"><span
+                                                        class="page-link text-danger">{{ num }} <span
                                                         class="sr-only">(current)</span></span>
                                                 </li>
                                             {% else %}
-                                                <li><a class="page-link text-danger" href="?page={{ num }}">{{ num }}</a></li>
+                                                <li><a class="page-link text-danger"
+                                                       href="?page={{ num }}">{{ num }}</a></li>
                                             {% endif %}
                                         {% endfor %}
-                                        {% if comments.has_next %}
+                                        {% if page_obj.has_next %}
                                             <li class="page-item"><a class="page-link text-danger"
-                                                                     href="?page={{ comments.next_page_number }}">Next</a>
+                                                                     href="?page={{ page_obj.next_page_number }}">Next</a>
                                             </li>
                                         {% else %}
-                                            <li class="page-item disabled"><a class="page-link text-danger" href="#">Next</a></li>
+                                            <li class="page-item disabled"><a class="page-link text-danger"
+                                                                              href="#">Next</a></li>
                                         {% endif %}
                                     </ul>
                                 {% endif %}
@@ -103,7 +108,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script>
         function formClose() {

@@ -33,7 +33,7 @@ class TelescopeListView(generic.ListView):
     model = Telescope
     context_object_name = 'telescopes'
     ordering = ['-created']
-    paginate_by = 6
+    paginate_by = 3
 
 
 class TelescopeDetails(generic.DetailView):

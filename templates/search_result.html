@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Searched results{% endblock %}
+{% block content %}
+
+    <h1 class="text-center">Searched Results</h1>
+    <br>
+    <hr>
+    <br>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            {% if telescope_list %}
+                {% for telescope in telescope_list %}
+                    {% include 'telescopes/telescope_container.html' with telescope=telescope %}
+                {% endfor %}
+            {% else %}
+                <h1>There's no result...</h1>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+

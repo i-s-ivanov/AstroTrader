@@ -1,5 +1,4 @@
 <header>
-    <br>
     <nav>
         <div class="container">
             <div class="wrapper">
@@ -19,5 +18,16 @@
             </div>
         </div>
     </nav>
+    <section class="adv-content">
+        <div class="container">
+            <form action="{% url 'search results' %}" method="get" id="search-form">
+                <fieldset>
+                    <input name="q" type="text" placeholder="Search..." aria-label="Search..."
+                       aria-describedby="basic-addon2">
+                    <input type="submit" value="">
+                </fieldset>
+            </form>
+        </div>
+    </section>
 </header>
 <br><br>
