@@ -31,6 +31,11 @@ AstroTrader is an app for selling or buying second hand astro equipment
     * /telescopes/delete/<int:pk>/
     * /telescopes/details/<int:pk>/
 
+#### Common:
+   * Authentication (non-authenticated)
+    * /search/ - search by make or model
+         
+
 ### Executing program
 
 * How to run the program
