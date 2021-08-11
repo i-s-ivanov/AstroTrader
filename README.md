@@ -29,7 +29,7 @@ AstroTrader is an app for selling or buying second hand astro equipment
     * /telescopes/create/
     * /telescopes/update/<int:pk>/
     * /telescopes/delete/<int:pk>/
-    * /telescopes/details/<int:pk>
+    * /telescopes/details/<int:pk>/
 
 ### Executing program
 
