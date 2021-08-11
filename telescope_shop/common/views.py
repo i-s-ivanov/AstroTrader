@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.views import generic
-from django.views.generic import TemplateView
+
 
 from telescope_shop.telescopes.models import Telescope
 

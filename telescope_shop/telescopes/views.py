@@ -6,26 +6,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
 from django.views import generic
 
-
 from telescope_shop.common.forms import BootstrapFormMixin
 from telescope_shop.telescopes.forms import CreateTelescopeForm, CommentForm
 from telescope_shop.telescopes.models import Telescope, Comment
 
 UserModel = get_user_model()
-
-
-class CommentView(generic.CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'telescopes/telescope_comment.html'
-
-    def get_success_url(self):
-        item_id = self.kwargs['pk']
-        return reverse_lazy('telescope details', kwargs={'pk': item_id})
-
-    def form_valid(self, form):
-        form.instance.telescope_id = self.kwargs['pk']
-        return super().form_valid(form)
 
 
 class TelescopeListView(generic.ListView):
@@ -88,3 +73,17 @@ class TelescopeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Telescope
     template_name = 'telescopes/telescope_delete.html'
     success_url = reverse_lazy('telescope list')
+
+
+class CommentView(generic.CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'telescopes/telescope_comment.html'
+
+    def get_success_url(self):
+        item_id = self.kwargs['pk']
+        return reverse_lazy('telescope details', kwargs={'pk': item_id})
+
+    def form_valid(self, form):
+        form.instance.telescope_id = self.kwargs['pk']
+        return super().form_valid(form)

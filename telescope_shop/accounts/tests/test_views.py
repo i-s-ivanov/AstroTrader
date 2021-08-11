@@ -1,17 +1,26 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
+
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from telescope_shop.accounts.models import Profile
 from telescope_shop.telescopes.models import Telescope
 from django.contrib.auth.forms import UserCreationForm
 
-from tests.base.tests import AstroTraderTestCase
-
 UserModel = get_user_model()
 
 
-class ProfileDetailsTest(AstroTraderTestCase):
+class ProfileDetailsTest(TestCase):
+    username = 'test'
+    password = 'test'
+
+    def setUp(self) -> None:
+        self.client = Client()
+        self.user = UserModel.objects.create_user(
+            username=self.username,
+            password=self.password,
+        )
+
     def test_get_details_whenLoggedInUserWithoutPosts_shouldGetDetails(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('profile details'))
@@ -55,19 +64,17 @@ class ProfileDetailsTest(AstroTraderTestCase):
         self.assertEqual('path/to/image.png', profile.profile_image)
 
 
-class RegisterUserTest(AstroTraderTestCase):
-    # def setUp(self) -> None:
-    #     self.client = Client()
-    #     self.user = UserModel.objects.create_user(username='test', password='12345qwe')
-    #
-    # def test_registerUserSuccessfully(self):
-    #     response = self.client.post(reverse('register'), data={
-    #         'user': self.user
-    #     })
-    #
-    #     self.assertEqual(200, response.status_code)
-    def setUp(self):
-        self.backend = UserCreationForm()
+class RegisterUserTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        self.user = UserModel.objects.create_user(username='test', password='12345qwe')
+
+    def test_registerUserSuccessfully(self):
+        response = self.client.post(reverse('register'), data={
+            'user': self.user
+        })
+
+        self.assertEqual(200, response.status_code)
 
     def test_registration_view_get(self):
         response = self.client.get(reverse('register'))
