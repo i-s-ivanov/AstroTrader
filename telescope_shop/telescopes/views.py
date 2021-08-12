@@ -18,7 +18,7 @@ class TelescopeListView(generic.ListView):
     model = Telescope
     context_object_name = 'telescopes'
     ordering = ['-created']
-    paginate_by = 3
+    paginate_by = 5
 
 
 class TelescopeDetails(generic.DetailView):
@@ -38,13 +38,9 @@ class TelescopeDetails(generic.DetailView):
         queryset = self.object.comments.all()
         paginator = Paginator(queryset, 6)
         page = self.request.GET.get('page', 1)
-        try:
-            comments = paginator.page(page)
-        except PageNotAnInteger:
-            comments = paginator.page(1)
-        except EmptyPage:
-            comments = paginator.page(paginator.num_pages)
+        comments = paginator.page(page)
         return comments
+
 
 
 class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.CreateView):

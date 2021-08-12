@@ -32,22 +32,13 @@
         <h2 class='text-center'>Your ads</h2>
         <br>
         <div class="container">
-            <div class="row justify-content-md-center">
+            {% if posts %}
                 {% for post in posts %}
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <img src="{{ post.image.url }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ post.make }}</h5>
-                                <p class="card-text">{{ post.model }}</p>
-                                <p class="card-text"><strong>Price: {{ post.price }}$</strong></p>
-                                <a href="{% url 'telescope details' post.id %}" class="btn btn-danger">See details</a>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
+                    {% include 'telescopes/telescope_container.html' with telescope=post %}
                 {% endfor %}
-            </div>
+            {% else %}
+                <h1>You have no posts yet...</h1>
+            {% endif %}
         </div>
         <br><br>
     {% else %}
