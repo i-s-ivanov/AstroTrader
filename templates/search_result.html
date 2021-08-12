@@ -7,16 +7,17 @@
     <hr>
     <br>
     <div class="container">
-        <div class="row justify-content-md-center">
-            {% if telescope_list %}
-                {% for telescope in telescope_list %}
-                    {% include 'telescopes/telescope_container.html' with telescope=telescope %}
-                {% endfor %}
-            {% else %}
-                <h1>There's no result...</h1>
-            {% endif %}
-        </div>
+        {% if telescope_list %}
+            {% for telescope in telescope_list %}
+                {% include 'telescopes/telescope_container.html' with telescope=telescope %}
+            {% endfor %}
+        {% else %}
+            <h1>There's no result...</h1>
+        {% endif %}
+        {% include 'pagination.html' %}
     </div>
+
+    <br><br><br><br>
 {% endblock %}
 
 

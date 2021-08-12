@@ -12,6 +12,7 @@ class IndexView(generic.TemplateView):
 class SearchResultsView(generic.ListView):
     model = Telescope
     template_name = 'search_result.html'
+    paginate_by = 5
 
     def get_queryset(self):
         query = self.request.GET.get('q')
