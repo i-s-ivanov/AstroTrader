@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 <title>{% block title %}Create an Ad{% endblock %}</title>
 {% block content %}
-    <div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-            <form method="post" action="{% url 'create telescope' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form }}
-                <br>
-                <button class="btn btn-danger" type="submit">Create</button>
-            </form>
+    <div class="container" style="background-image: none">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <form style="border: 1px solid grey; margin: 10% 0%; padding: 10% 5%" method="post" action="{% url 'create telescope' %}">
+                    <h2>Create an Ad</h2>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-danger" type="submit">Create</button>
+                </form>
+            </div>
         </div>
-        <div class="col-lg-3"></div>
     </div>
+    <br><br>
 {% endblock %}

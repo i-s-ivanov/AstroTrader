@@ -11,7 +11,7 @@
                 <hr>
                 <h6 class="card-text">{{ telescope.description|truncatechars:50 }}</h6>
                 <p class="card-text">Location: <strong>{{ telescope.location }}</strong></p>
-                <p class="card-text">Price: <strong>{{ telescope.price }}$</strong></p>
+                <p class="card-text h5">Price: <strong>{{ telescope.price }}$</strong></p>
                 <p class="card-text"><small class="text-muted">Published: {{ telescope.created|date }}</small></p>
                 <a href="{% url 'telescope details' telescope.id %}" class="btn btn-danger">See details</a>
             </div>

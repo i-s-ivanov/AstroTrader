@@ -2,12 +2,16 @@
 <title>{% block title %}Login{% endblock %}</title>
 {% block content %}
     <div class="container">
-        <form class="w-50 m-auto" method="post" style="border: 1px solid grey; margin: 10% 0%; padding: 5% 5%"
-            <h2>Login</h2>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-danger">Login</button>
-            <span>or <a href="{% url 'register' %}" style="color:orange">Register</a></span>
-        </form>
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <form method="post" style="border: 1px solid grey; margin: 10% 0%; padding: 10% 5%">
+                <h2>Login</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-danger">Login</button>
+                <span>or <a href="{% url 'register' %}" style="color:orange">Register</a></span>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
