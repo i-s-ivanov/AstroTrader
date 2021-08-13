@@ -17,15 +17,16 @@
             </div>
             <div class="col-md-8">
                 <br>
-                <h1>{{ telescope.make }} {{ telescope.model }}</h1>
-
-                <p>{{ telescope.description }}</p>
+                <p class="h2">{{ telescope.make }} {{ telescope.model }}</p>
+                <hr>
+                <p class="h6">{{ telescope.description }}</p>
+                <hr>
                 <li>Location: <strong>{{ telescope.location }}</strong></li>
                 <li>Contact Number: <strong>{{ telescope.contact_number }}</strong></li>
                 <li>Owner: <strong>{{ telescope.user.username }}</strong></li>
                 <h3>Price: <strong>{{ telescope.price }}$</strong></h3>
                 {% if is_owner %}
-                    <a href="{% url 'update telescope' telescope.id %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'update telescope' telescope.id %}" class="btn btn-secondary">Update</a>
                     <a href="{% url 'delete telescope' telescope.id %}" class="btn btn-danger">Delete</a>
                 {% endif %}
                 <hr>
@@ -33,7 +34,7 @@
             <div class="col-md-8 mx-auto">
                 <br><br>
                 <h2>Ask The Seller...</h2>
-                {{ telescope.comments.count }} comments
+                {{ telescope.comments.count }} comments.
                 {% load mptt_tags %}
                 {% if not telescope.comments.all %}
                     No questions yet...
@@ -62,7 +63,7 @@
                     {% include 'pagination.html' %}
                 {% endif %}
                 <div>
-                    <h1 style="text-align: center">Comment...</h1>
+                    <p class="h2" style="text-align: center">Comment...</p>
                     <form class="form-insert py-2" action="{% url 'comment' telescope.pk %}" method="post">
                         {% csrf_token %}
                         {{ form }}

@@ -42,7 +42,6 @@ class TelescopeDetails(generic.DetailView):
         return comments
 
 
-
 class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.CreateView):
     form_class = CreateTelescopeForm
     model = Telescope
@@ -57,7 +56,7 @@ class TelescopeCreateView(BootstrapFormMixin, LoginRequiredMixin, generic.Create
 class TelescopeUpdateView(BootstrapFormMixin, LoginRequiredMixin, generic.UpdateView):
     model = Telescope
     template_name = 'telescopes/telescope_update.html'
-    fields = ('make', 'model', 'description', 'price', 'image')
+    fields = ('make', 'model', 'description', 'price', 'image',)
 
     def get_success_url(self):
         item_id = self.kwargs['pk']
