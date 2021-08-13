@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-lczxy_yh2ulgxq4$fy%cr)jzb8(z31@0^^2s*b9)ayubp4-qx_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'astro-trader.herokuapp.com',
+]
 
 
 # Application definition
