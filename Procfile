@@ -1,1 +1,1 @@
-web: gunicorn AstroTrader.wsgi
+web: gunicorn telescope_shop.wsgi
